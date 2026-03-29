@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>githelp — Simple help. Trusted people. Done fast.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #151515;
+      --gray-dark: #3a3a3a;
+      --gray-mid: #6b6b6b;
+      --gray-light: #e8e8e8;
+      --gray-bg: #f2f4f3;
+      --green: #3a7d5a;
+      --green-light: #eef6f1;
+      --blue-light: #eef2f9;
+      --blue: #3a5fa0;
+      --gold: #e6a817;
+      --white: #ffffff;
+      --shadow: 0 4px 24px rgba(0,0,0,0.07);
+      --shadow-hover: 0 8px 32px rgba(0,0,0,0.13);
+      --radius: 24px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--gray-bg);
+      color: var(--black);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Launch Banner ── */
+    .launch-banner {
+      background: var(--black);
+      color: var(--white);
+      text-align: center;
+      padding: 12px 20px;
+      font-family: 'Sora', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .launch-banner span {
+      color: var(--gold);
+      margin-right: 6px;
+    }
+
+    /* ── Main wrapper ── */
+    .page {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+    }
+
+    /* ── Header ── */
+    .header {
+      text-align: center;
+      padding: 48px 0 36px;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .logo-icon {
+      width: 44px;
+      height: 44px;
+    }
+
+    .logo-text {
+      font-family: 'Sora', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--black);
+      letter-spacing: -0.5px;
+    }
+
+    .tagline {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--gray-mid);
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      text-align: center;
+      margin: 8px 0 40px;
+      animation: fadeUp 0.7s ease 0.1s both;
+    }
+
+    .hero h1 {
+      font-family: 'Sora', sans-serif;
+      font-size: 38px;
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--black);
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      font-size: 16px;
+      color: var(--gray-mid);
+      line-height: 1.65;
+      font-weight: 400;
+      max-width: 360px;
+      margin: 0 auto;
+    }
+
+    /* ── Cards ── */
+    .cards {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 44px;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1.5px solid var(--gray-light);
+      box-shadow: var(--shadow);
+      padding: 32px 28px 28px;
+      transition: box-shadow 0.25s ease, transform 0.25s ease;
+      animation: fadeUp 0.7s ease both;
+      cursor: default;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+
+    .card.worker {
+      background: linear-gradient(160deg, #f0f5ff 0%, #ffffff 60%);
+      animation-delay: 0.15s;
+    }
+
+    .card.customer {
+      background: linear-gradient(160deg, #f0f8f4 0%, #ffffff 60%);
+      animation-delay: 0.25s;
+    }
+
+    .card-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      font-size: 26px;
+    }
+
+    .card.worker .card-icon {
+      background: #e8eeff;
+    }
+
+    .card.customer .card-icon {
+      background: #e4f3ec;
+    }
+
+    .card h2 {
+      font-family: 'Sora', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 8px;
+      letter-spacing: -0.3px;
+    }
+
+    .card .sub {
+      font-size: 14px;
+      color: var(--gray-mid);
+      line-height: 1.6;
+      margin-bottom: 20px;
+      font-weight: 400;
+    }
+
+    .bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .bullets li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--gray-dark);
+      font-weight: 500;
+    }
+
+    .bullet-check {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .card.worker .bullet-check {
+      background: #dce6ff;
+      color: var(--blue);
+    }
+
+    .card.customer .bullet-check {
+      background: #d4eddf;
+      color: var(--green);
+    }
+
+    .card-cta {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1.5px solid var(--gray-light);
+      background: var(--white);
+      font-family: 'Sora', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--black);
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+      letter-spacing: -0.2px;
+    }
+
+    .card.worker .card-cta:hover {
+      background: #eef2ff;
+      border-color: #b0bfee;
+    }
+
+    .card.customer .card-cta:hover {
+      background: #edf7f2;
+      border-color: #a0d4b8;
+    }
+
+    /* ── Trust strip ── */
+    .trust {
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1.5px solid var(--gray-light);
+      box-shadow: var(--shadow);
+      padding: 28px 24px;
+      margin-bottom: 32px;
+      animation: fadeUp 0.7s ease 0.35s both;
+    }
+
+    .trust-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 0;
+    }
+
+    .trust-row:not(:last-child) {
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .trust-icon {
+      font-size: 22px;
+      width: 36px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .trust-text {
+      font-size: 14px;
+      color: var(--gray-dark);
+      line-height: 1.5;
+    }
+
+    .trust-text strong {
+      font-weight: 700;
+      color: var(--black);
+    }
+
+    .trust-serving {
+      text-align: center;
+      font-size: 13px;
+      color: var(--gray-mid);
+      margin-top: 20px;
+      font-weight: 500;
+    }
+
+    .trust-serving a {
+      color: var(--gray-mid);
+      text-decoration: none;
+      border-bottom: 1px solid var(--gray-light);
+    }
+
+    /* ── App store badges ── */
+    .badges {
+      text-align: center;
+      margin-bottom: 36px;
+      animation: fadeUp 0.7s ease 0.4s both;
+    }
+
+    .badges p {
+      font-family: 'Sora', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-mid);
+      margin-bottom: 16px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .badge-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .badge-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--black);
+      color: var(--white);
+      border-radius: 12px;
+      padding: 12px 20px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .badge-btn:hover { opacity: 0.8; }
+
+    .badge-btn-icon { font-size: 22px; }
+
+    .badge-btn-text { text-align: left; }
+
+    .badge-btn-text small {
+      display: block;
+      font-size: 10px;
+      opacity: 0.7;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+    }
+
+    .badge-btn-text strong {
+      display: block;
+      font-family: 'Sora', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      font-size: 13px;
+      color: var(--gray-mid);
+      padding-top: 8px;
+      animation: fadeUp 0.7s ease 0.5s both;
+    }
+
+    footer a {
+      color: var(--gray-mid);
+      text-decoration: none;
+      margin: 0 10px;
+      border-bottom: 1px solid var(--gray-light);
+      padding-bottom: 1px;
+      transition: color 0.2s;
+    }
+
+    footer a:hover { color: var(--black); }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Responsive ── */
+    @media (min-width: 600px) {
+      .cards { flex-direction: row; }
+      .card { flex: 1; }
+      .page { max-width: 900px; }
+      .hero h1 { font-size: 48px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Launch Banner -->
+  <div class="launch-banner">
+    <span>🚀</span> Launch Special — Be one of the first users in your area
+  </div>
+
+  <div class="page">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="logo-area">
+        <!-- Replace src with your actual logo file once hosted -->
+        <svg class="logo-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="44" height="44" rx="10" fill="#151515"/>
+          <text x="22" y="30" text-anchor="middle" font-family="Sora,sans-serif" font-weight="800" font-size="22" fill="white">g</text>
+        </svg>
+        <span class="logo-text">githelp</span>
+      </div>
+      <p class="tagline">Simple help. Trusted people. Done fast.</p>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <h1>Get Help. Get Paid.<br/>All in One Place.</h1>
+      <p>Whether you need help or want to earn, githelp connects everyday people quickly and safely.</p>
+    </section>
+
+    <!-- Cards -->
+    <div class="cards">
+
+      <!-- Worker Card -->
+      <div class="card worker">
+        <div class="card-icon">🔨</div>
+        <h2>Find Work Near You</h2>
+        <p class="sub">Choose flexible jobs in your area and get paid quickly</p>
+        <ul class="bullets">
+          <li>
+            <span class="bullet-check">✓</span>
+            Flexible schedule
+          </li>
+          <li>
+            <span class="bullet-check">✓</span>
+            Local jobs
+          </li>
+          <li>
+            <span class="bullet-check">✓</span>
+            Fast payouts
+          </li>
+        </ul>
+        <a href="#" class="card-cta">Get Started →</a>
+      </div>
+
+      <!-- Customer Card -->
+      <div class="card customer">
+        <div class="card-icon">🏠</div>
+        <h2>Hire Help You Can Trust</h2>
+        <p class="sub">Post a job and connect with reliable local workers</p>
+        <ul class="bullets">
+          <li>
+            <span class="bullet-check">✓</span>
+            Identity-verified workers
+          </li>
+          <li>
+            <span class="bullet-check">✓</span>
+            Simple booking
+          </li>
+          <li>
+            <span class="bullet-check">✓</span>
+            Fair pricing
+          </li>
+        </ul>
+        <a href="#" class="card-cta">Post a Job →</a>
+      </div>
+
+    </div>
+
+    <!-- Trust Strip -->
+    <div class="trust">
+      <div class="trust-row">
+        <span class="trust-icon">⭐</span>
+        <span class="trust-text"><strong>Trusted</strong> by local communities</span>
+      </div>
+      <div class="trust-row">
+        <span class="trust-icon">🔒</span>
+        <span class="trust-text"><strong>Secure</strong> payments powered by Stripe</span>
+      </div>
+      <div class="trust-row">
+        <span class="trust-icon">📍</span>
+        <span class="trust-text"><strong>Built</strong> for your neighborhood</span>
+      </div>
+      <p class="trust-serving">Serving Macomb County and beyond →</p>
+    </div>
+
+    <!-- App Store Badges -->
+    <div class="badges">
+      <p>Coming soon to</p>
+      <div class="badge-buttons">
+        <a href="#" class="badge-btn">
+          <span class="badge-btn-icon">🍎</span>
+          <div class="badge-btn-text">
+            <small>Download on the</small>
+            <strong>App Store</strong>
+          </div>
+        </a>
+        <a href="#" class="badge-btn">
+          <span class="badge-btn-icon">▶</span>
+          <div class="badge-btn-text">
+            <small>Get it on</small>
+            <strong>Google Play</strong>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <a href="https://githelpapp.github.io/terms.html">Terms</a>
+      <a href="https://githelpapp.github.io/privacy.html">Privacy</a>
+    </footer>
+
+  </div>
+
+</body>
+</html>
