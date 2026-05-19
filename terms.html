@@ -1,199 +1,422 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Terms of Service — GitHelp</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #fff; color: #1a1a1a; line-height: 1.7; }
-    header { background: #000; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; }
-    header a.logo { color: #fff; font-weight: 900; font-size: 22px; text-decoration: none; }
-    header a.back { color: rgba(255,255,255,0.7); font-size: 14px; text-decoration: none; }
-    header a.back:hover { color: #fff; }
-    .container { max-width: 760px; margin: 0 auto; padding: 48px 24px 80px; }
-    h1 { font-size: 32px; font-weight: 900; color: #1a6bff; margin-bottom: 6px; }
-    .meta { font-size: 13px; color: #888; margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid #eee; }
-    .intro { font-size: 15px; color: #333; line-height: 1.8; margin-bottom: 20px; }
-    .caps-box { background: #f8f8f8; border-left: 4px solid #1a6bff; padding: 14px 16px; margin-bottom: 20px; border-radius: 4px; }
-    .caps-box p { font-size: 12px; font-weight: 600; color: #333; line-height: 1.7; }
-    h2.section { font-size: 11px; font-weight: 700; color: #1a6bff; letter-spacing: 1px; text-transform: uppercase; margin-top: 48px; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid #1a6bff; }
-    h2.section.pet { color: #2e7d32; border-bottom-color: #2e7d32; }
-    h2.section.sports { color: #1565c0; border-bottom-color: #1565c0; }
-    h3 { font-size: 16px; font-weight: 700; color: #0a0a0a; margin-top: 24px; margin-bottom: 8px; }
-    p { font-size: 14px; color: #333; line-height: 1.8; margin-bottom: 14px; }
-    ul { margin: 0 0 14px 0; padding-left: 0; list-style: none; }
-    ul li { font-size: 14px; color: #333; line-height: 1.8; margin-bottom: 6px; padding-left: 16px; position: relative; }
-    ul li::before { content: "•"; position: absolute; left: 0; color: #555; }
-    .pet-box { background: #e8f5e9; border-left: 4px solid #2e7d32; padding: 14px 16px; margin-bottom: 20px; border-radius: 4px; }
-    .pet-box p { color: #1b5e20; font-weight: 600; font-size: 14px; margin: 0; }
-    a { color: #1a6bff; }
-    footer { background: #f5f5f5; border-top: 1px solid #e0e0e0; padding: 32px 24px; text-align: center; }
-    footer p { font-size: 13px; color: #888; margin: 0; }
-    footer a { color: #1a6bff; text-decoration: none; }
-    .copyright { margin-top: 8px; font-size: 12px; color: #aaa; }
-    @media (max-width: 600px) { h1 { font-size: 26px; } .container { padding: 32px 16px 60px; } }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #ffffff;
+      color: #222222;
+      line-height: 1.7;
+      padding: 40px 20px 80px;
+    }
+
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 32px;
+    }
+
+    .logo span { color: #1a6bff; }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 700;
+      color: #1a6bff;
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    .meta {
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 40px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid #eee;
+    }
+
+    h2 {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #1a6bff;
+      margin: 48px 0 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #1a6bff;
+    }
+
+    h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0a0a0a;
+      margin: 28px 0 10px;
+    }
+
+    p {
+      font-size: 15px;
+      color: #333;
+      margin-bottom: 16px;
+    }
+
+    ul {
+      margin: 0 0 16px 0;
+      padding-left: 24px;
+    }
+
+    ul li {
+      font-size: 15px;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .caps {
+      font-size: 13px;
+      font-weight: 600;
+      color: #333;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      background: #f8f8f8;
+      border-left: 3px solid #1a6bff;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    .footer {
+      margin-top: 64px;
+      padding-top: 32px;
+      border-top: 1px solid #eee;
+      text-align: center;
+      font-size: 13px;
+      color: #888;
+      line-height: 1.8;
+    }
+
+    .footer em {
+      display: block;
+      font-style: italic;
+      margin-bottom: 8px;
+      color: #555;
+    }
+
+    a { color: #1a6bff; text-decoration: none; }
+    a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
-
-<header>
-  <a class="logo" href="/">GitHelp</a>
-  <a class="back" href="/">&#8592; Back to Home</a>
-</header>
-
 <div class="container">
+
+  <div class="logo">git<span>help</span></div>
+
   <h1>Terms of Service</h1>
-  <p class="meta">Effective Date: April 2026 &nbsp;|&nbsp; Last Updated: May 2026 &nbsp;|&nbsp; GitHelp LLC</p>
-  <p class="intro">These Terms of Service ("Terms") constitute a legally binding agreement between you ("User") and GitHelp LLC governing your use of the GitHelp mobile application and website (collectively, the "Platform"). By accessing or using the Platform, you agree to be bound by these Terms.</p>
-  <div class="caps-box"><p>IMPORTANT: SECTION 12 CONTAINS A BINDING ARBITRATION AGREEMENT AND CLASS ACTION WAIVER. PLEASE READ IT CAREFULLY.</p></div>
+  <div class="meta">Effective Date: April 2026 &nbsp;|&nbsp; Last Updated: May 2026 (v1.2) &nbsp;|&nbsp; GitHelp LLC</div>
 
-  <h2 class="section">1. The Platform</h2>
+  <p>These Terms of Service ("Terms") constitute a legally binding agreement between you ("User," "you," or "your") and GitHelp LLC ("GitHelp," "we," "us," or "our") governing your use of the GitHelp mobile application and website (collectively, the "Platform"). By accessing or using the Platform, you acknowledge that you have read, understood, and agree to be bound by these Terms. If you do not agree, do not use the Platform.</p>
+
+  <div class="caps">Important: Section 12 of these Terms contains a binding arbitration agreement and class action waiver. Please read it carefully as it affects your legal rights.</div>
+
+  <!-- Section 1 -->
+  <h2>1. The Platform</h2>
+
   <h3>A. Overview</h3>
-  <p>GitHelp connects homeowners ("Customers") with local independent service providers ("Workers") for home services including house cleaning, lawn care, window cleaning, sports coaching, and more (each, a "Job"). Workers are independent contractors who choose which Jobs to accept.</p>
+  <p>GitHelp is an online two-sided marketplace that connects homeowners and residents ("Customers") seeking home services with local independent service providers ("Workers") available to perform those services. Services available through the Platform include but are not limited to house cleaning, lawn care, window cleaning, sports coaching, and other home and personal services (each, a "Job").</p>
+  <p>Customers and Workers are collectively referred to as "Users." GitHelp does not perform Jobs, employ Workers, or supervise the performance of any Job. Workers are independent contractors who operate their own businesses and choose which Jobs to accept.</p>
+
   <h3>B. GitHelp's Role</h3>
-  <p>GitHelp is a technology marketplace, not an employer. GitHelp does not perform Jobs, supervise Workers, set their hours, provide their tools, or guarantee the quality or outcome of any Job. Workers assume all responsibility for applicable taxes, insurance, and legal compliance.</p>
+  <p>GitHelp is a technology platform and marketplace, not an employment agency, staffing company, or contractor. GitHelp is not an employer of any User. Workers are not employees, agents, partners, or representatives of GitHelp.</p>
+  <p>GitHelp does not: (i) perform Jobs or employ individuals to perform Jobs; (ii) supervise, direct, control, or monitor Workers' performance; (iii) set Workers' hours, locations, or working conditions; (iv) provide tools, supplies, or equipment to Workers; or (v) guarantee the quality, timeliness, legality, or outcome of any Job.</p>
+  <p>GitHelp is not responsible or liable for workers' compensation, unemployment insurance, disability insurance, income tax withholding, Social Security contributions, or any other employment-related obligations with respect to Workers. Each Worker assumes full and sole responsibility for all applicable taxes, insurance, and legal compliance obligations arising from their work.</p>
+
   <h3>C. Worker Classification</h3>
-  <p>Workers are independent contractors, not employees of GitHelp or any Customer. Nothing in these Terms creates an employment, partnership, or agency relationship.</p>
+  <p>Workers using the Platform are independent contractors, not employees of GitHelp or of any Customer. Workers retain the right to: (a) work for other platforms or clients without restriction; (b) accept or decline any Job at their sole discretion; (c) set their own work schedules subject to Job availability; and (d) operate under their own business name. Nothing in these Terms creates an employment, partnership, joint venture, agency, or franchise relationship between GitHelp and any Worker.</p>
+
   <h3>D. Job Pricing and Additional Hour Charges</h3>
-  <p>All Job pricing is set by GitHelp and displayed before posting. Prices are fixed. Certain Jobs include a disclosed "2nd hour" rate shown as an informational notice only. No additional charge applies unless: (i) the Worker requests an additional hour through the app; and (ii) the Customer explicitly approves. Customers may decline at any time prior to approval.</p>
+  <p>All Job pricing on the Platform is set by GitHelp and displayed to Customers prior to posting a Job. Prices are fixed — Customers do not negotiate pricing with Workers, and Workers do not set their own rates. GitHelp retains a platform fee from each completed Job, and Workers receive the remainder as disclosed in the app.</p>
+  <p>Certain Jobs include a disclosed "2nd hour" rate shown to the Customer before posting as an informational notice only. No additional charge is applied unless: (i) the Worker requests an additional hour through the app after beginning the Job; and (ii) the Customer explicitly approves the request through the app. Approval is required before any additional charge is processed. Customers may decline the request at any time prior to approval.</p>
+  <p>Pricing may be updated by GitHelp at any time with notice provided through the Platform.</p>
+
   <h3>E. First-Come, First-Served Acceptance</h3>
-  <p>Jobs are matched to Workers based on their current GPS location. The first Worker to accept is assigned the Job.</p>
+  <p>Jobs posted by Customers are made available to eligible Workers in the relevant service area based on the Worker's current GPS location at the time Jobs are loaded. The first Worker to accept an available Job is assigned to it. GitHelp does not guarantee that any Job will be accepted or completed within any particular timeframe.</p>
 
-  <h2 class="section">2. Eligibility and Account Registration</h2>
+  <!-- Section 2 -->
+  <h2>2. Eligibility and Account Registration</h2>
+
   <h3>A. Eligibility</h3>
-  <p>You must be at least 18, have legal capacity to contract, reside or operate in a supported area, and comply with all applicable laws.</p>
+  <p>To use the Platform, you must: (i) be at least 18 years of age; (ii) have the legal capacity to enter into a binding contract; (iii) reside or operate in a service area supported by GitHelp; and (iv) comply with all applicable federal, state, and local laws. Workers must additionally be at least 18 years of age, as verified through Stripe Identity verification.</p>
+
   <h3>B. Account Creation</h3>
-  <p>You must provide accurate account information and keep it current. GitHelp may suspend or terminate accounts with inaccurate or fraudulent information.</p>
+  <p>You must create an account to use the Platform, providing accurate and complete information including your name, phone number, email address, and service address. You agree to keep your account information current and accurate at all times. GitHelp reserves the right to suspend or terminate accounts with inaccurate, incomplete, or fraudulent information.</p>
+
   <h3>C. Account Security</h3>
-  <p>You are responsible for your credentials and all account activity. Contact <a href="mailto:support@githelp.net">support@githelp.net</a> immediately if you suspect unauthorized access.</p>
+  <p>You are solely responsible for maintaining the confidentiality of your login credentials and for all activity that occurs under your account. You agree to notify GitHelp immediately at <a href="mailto:support@githelp.net">support@githelp.net</a> if you suspect any unauthorized access to your account. GitHelp is not liable for any loss or damage arising from unauthorized use of your account.</p>
+
   <h3>D. Worker Identity Verification</h3>
-  <p>All Workers must complete identity verification through Stripe Identity and must be 18 or older. Workers who fail verification will be blocked.</p>
+  <p>All Workers must complete identity verification through Stripe Identity before accessing Jobs on the Platform. Workers must be 18 years of age or older. Workers who fail verification or are found to be under 18 will be blocked from the Platform. GitHelp reserves the right to require re-verification at any time.</p>
+
   <h3>E. Worker Background Check</h3>
-  <p>All Workers must undergo a criminal background check through Checkr, Inc. The check includes a national criminal search, sex offender registry, global watchlist, SSN trace, and alias search. Workers provide information directly to Checkr — GitHelp never collects or stores SSNs.</p>
-  <p>Workers with disqualifying results will be denied access and notified per the Fair Credit Reporting Act (FCRA). Pre-adverse and adverse action notices are sent from <a href="mailto:support@githelp.net">support@githelp.net</a>. Workers may dispute results directly with Checkr.</p>
+  <p>All Workers are required to undergo a criminal background check administered through Checkr, Inc. ("Checkr") as a condition of platform access. The background check includes a national criminal search, sex offender registry search, global watchlist search, and SSN trace. Workers must provide consent and any required information directly to Checkr through Checkr's secure portal. GitHelp does not collect or store Workers' Social Security numbers or other sensitive identity documents.</p>
+  <p>GitHelp reviews background check results and makes the final determination on Worker approval. Workers whose background checks return disqualifying results will be denied platform access and notified in accordance with the Fair Credit Reporting Act (FCRA). Pre-adverse and adverse action notices will be sent to the Worker's registered email address from support@githelp.net. Workers have the right to dispute inaccurate background check results directly with Checkr.</p>
+
   <h3>F. Worker Manual Approval</h3>
-  <p>Completing onboarding does not guarantee access. GitHelp manually reviews and approves all Worker applications. GitHelp may decline any application at its sole discretion.</p>
+  <p>Completion of onboarding, identity verification, and background check does not guarantee platform access. GitHelp reserves the right to manually review and approve all Worker applications before granting access to Jobs. Workers will be notified via push notification when their application is approved. GitHelp may decline any application at its sole discretion.</p>
+
   <h3>G. Worker Integrity Screening</h3>
-  <p>Workers must complete GitHelp's integrity screening during onboarding. Workers who provide false information may be permanently banned.</p>
+  <p>Workers must complete GitHelp's integrity screening process during onboarding, which includes acknowledgment of platform standards, conduct expectations, and disqualifying conditions. Workers who provide false information during screening may be permanently banned from the Platform.</p>
+
   <h3>H. Worker Location Consent</h3>
-  <p>Workers consent to GitHelp using their current GPS location to match them with nearby Jobs. Location data is used in real time and not stored beyond the active session.</p>
+  <p>By using the Platform as a Worker, you consent to GitHelp using your device's current GPS location to determine which Jobs are available within your service radius. Location is used solely to match Workers with nearby Jobs and is not stored or shared beyond this purpose.</p>
 
-  <h2 class="section">3. Jobs and Service Agreements</h2>
+  <!-- Section 3 -->
+  <h2>3. Jobs and Service Agreements</h2>
+
   <h3>A. Posting a Job</h3>
-  <p>Before posting, Customers must upload a photo of the work area. This photo is shared only with the assigned Worker and purged after the Job closes. By posting, Customers confirm all information is accurate and complete.</p>
+  <p>Customers may post Jobs through the Platform by selecting a service category, providing relevant details, and authorizing payment. Before posting, Customers are required to upload a photo of the area or item that needs work. This photo is shared with the assigned Worker to help them assess the complexity of the Job prior to acceptance. Photos are not shared publicly and are purged after the Job is closed.</p>
+  <p>By posting a Job, the Customer represents that all information provided is accurate and complete, including the service address, access requirements, and any relevant conditions at the Job location.</p>
+
   <h3>B. Accepting a Job</h3>
-  <p>When a Worker accepts a Job, a service agreement forms directly between Customer and Worker. GitHelp is not a party to this agreement.</p>
+  <p>When a Worker accepts a Job, a service agreement is formed directly between the Customer and the Worker ("Service Agreement"). GitHelp is not a party to any Service Agreement. The Worker agrees to perform the Job as described, and the Customer agrees to provide accurate information and reasonable access to the Job location.</p>
+
   <h3>C. Worker Commitments</h3>
-  <p>By accepting a Job, Workers commit to arriving on time, performing the Job as described, uploading a before photo within 60 minutes for ASAP Jobs, and communicating exclusively through in-app chat. If additional time is needed, the Worker may request an additional hour through the app — the Customer must approve before any charge is applied.</p>
+  <p>By accepting a Job, Workers commit to: (i) arriving at the scheduled time or within the agreed window for ASAP Jobs; (ii) performing the Job professionally and as described; (iii) uploading a before photo within 60 minutes of acceptance for ASAP Jobs; (iv) completing the Job or notifying the Customer through the app if unable to complete; and (v) communicating exclusively through the in-app chat.</p>
+  <p>If a Worker determines that additional time is required to complete a Job, the Worker may request an additional hour through the app. The Customer will be notified and must approve before any additional charge is applied.</p>
+
   <h3>D. Customer Commitments</h3>
-  <p>Customers agree to upload an accurate job photo, provide accurate details and address, provide access at the agreed time, respond to additional hour requests, and treat Workers respectfully.</p>
+  <p>Customers agree to: (i) upload an accurate photo of the work area before posting a Job; (ii) provide accurate Job descriptions and service addresses; (iii) be present or provide access at the agreed time; (iv) provide any supplies or equipment as indicated in the Job posting; (v) respond promptly to additional hour requests from Workers; and (vi) treat Workers professionally and respectfully.</p>
+
   <h3>E. Job Rejection by Worker</h3>
-  <p>Workers may reject accepted Jobs only for legitimate reasons such as unsafe conditions. Repeated rejections may result in account suspension.</p>
+  <p>A Worker may reject an accepted Job only for legitimate reasons including unsafe conditions, animal hazards, or other circumstances that make completion impossible or unreasonable. Workers who reject Jobs must provide a reason through the app. Repeated or unwarranted Job rejections may result in account suspension or termination.</p>
+
   <h3>F. No Off-Platform Transactions</h3>
-  <p>All payments must go through the Platform. Off-platform arrangements or soliciting direct business relationships may result in immediate account termination.</p>
+  <p>All Job payments must be processed exclusively through the Platform. Users are prohibited from arranging off-platform payments, exchanging personal contact information for the purpose of bypassing the Platform, or soliciting direct business relationships outside of GitHelp. Violations may result in immediate account termination.</p>
 
-  <h2 class="section">4. Payments, Fees, and Payouts</h2>
+  <h3>G. Worker Liability for Services Performed</h3>
+  <p>Workers are solely and exclusively responsible for the manner, method, quality, and outcome of all services they perform through the Platform. GitHelp is not a general contractor, co-employer, or merchant of record. Workers accept full legal responsibility for: (i) any property damage caused during the performance of a Job, whether accidental or negligent; (ii) any bodily injury caused to any person, including Customers, household members, or bystanders, during or as a result of a Job; (iii) any theft, loss, or damage to Customer property occurring during a Job; (iv) any failure to perform a Job in a workmanlike manner; and (v) any violation of applicable laws, regulations, or licensing requirements in connection with a Job.</p>
+  <p>GitHelp expressly disclaims any liability for the acts, omissions, or negligence of any Worker. Customers acknowledge they are hiring Workers directly and assume the associated risks.</p>
+
+  <h3>H. Worker Indemnification of GitHelp</h3>
+  <p>In addition to the indemnification obligations in Section 10D, each Worker agrees to indemnify, defend, and hold harmless GitHelp LLC and its officers, directors, employees, and agents from and against any and all third-party claims, liabilities, damages, losses, costs, and expenses (including reasonable attorneys' fees) arising out of or related to: (i) any Job performed or attempted by the Worker through the Platform; (ii) the Worker's negligence, misconduct, or failure to perform services in a safe and workmanlike manner; (iii) any property damage or bodily injury caused by the Worker during a Job; (iv) the Worker's violation of any applicable law, regulation, or licensing requirement; (v) any misrepresentation made by the Worker regarding their qualifications, credentials, or experience; or (vi) any claim by a third party — including household members, guests, or bystanders — arising from the Worker's presence at or conduct during a Job.</p>
+  <p>This indemnification obligation survives termination of the Worker's account and these Terms.</p>
+
+  <!-- Section 4 -->
+  <h2>4. Payments, Fees, and Payouts</h2>
+
   <h3>A. Customer Payment</h3>
-  <p>Customers must have a valid payment method on file. Payment is authorized when a Job is posted and captured when a Worker accepts. All payments are processed through Stripe.</p>
-  <h3>B. Additional Hour Charges</h3>
-  <p>If a Worker requests an additional hour and the Customer approves, the charge is processed immediately upon approval. Additional hour charges are non-refundable once approved except in cases of verified dispute.</p>
-  <h3>C. Cancellation and Refunds</h3>
-  <p>Open Jobs may be cancelled anytime for a full refund. Assigned Jobs may be cancelled with Worker notification and a full refund. Refunds may take 5-10 business days.</p>
-  <h3>D. Disputes</h3>
-  <p>Customers may dispute within 24 hours of completion. GitHelp reviews disputes including photos. GitHelp's decision is final. If no dispute is filed within 24 hours, the Worker's payment is released automatically.</p>
-  <h3>E. Worker Payouts</h3>
-  <p>Workers receive earnings via Stripe Connect after the 24-hour dispute window. Workers must complete Stripe Connect onboarding to receive payouts.</p>
-  <h3>F. Worker Onboarding Fee</h3>
-  <p>Workers pay a total onboarding fee of $30.00, collected in three installments of $10.00 each from the first three job payouts. This covers background check processing, identity verification, and a GitHelp window sticker. No further deductions are made after the third job.</p>
-  <h3>G. Platform Fee</h3>
-  <p>GitHelp retains a platform fee from each completed Job, disclosed within the app.</p>
+  <p>Customers are required to have a valid payment method on file before posting a Job. Payment is authorized (held) when a Job is posted and captured when a Worker accepts the Job. All payments are processed through Stripe. By using the Platform, you agree to Stripe's Terms of Service.</p>
 
-  <h2 class="section">5. User Conduct and Acceptable Use</h2>
-  <p>The following is strictly prohibited:</p>
+  <h3>B. Additional Hour Charges</h3>
+  <p>If a Worker requests an additional hour and the Customer approves through the app, the additional hour charge (as disclosed in the Job posting) will be processed immediately upon approval. Additional hour charges are non-refundable once approved, except in cases of verified dispute. Customers are not charged for additional hour requests they decline.</p>
+
+  <h3>C. Cancellation and Refunds</h3>
+  <p>Customers may cancel an open Job (not yet accepted) at any time for a full refund of the authorized hold. Customers may cancel an assigned Job (already accepted by a Worker) for a full refund, but the Worker will be notified and the Job will be returned to open status. Refund processing times depend on your card issuer and may take 5–10 business days.</p>
+
+  <h3>D. Disputes</h3>
+  <p>Customers may initiate a dispute within 24 hours of Job completion if they believe the Job was not completed as described. GitHelp will review the dispute, including any before and after photos submitted by the Worker and the customer job photo submitted at posting. GitHelp's decision on disputes is final. If a dispute is resolved in the Customer's favor, a full or partial refund will be issued. If no dispute is filed within 24 hours of completion, the Worker's payment will be released automatically.</p>
+
+  <h3>E. Worker Payouts</h3>
+  <p>Workers receive their earnings via Stripe Connect after the 24-hour dispute window closes with no open dispute, or after a dispute is resolved in the Worker's favor. Workers must complete Stripe Connect onboarding to receive payouts. GitHelp is not responsible for delays caused by Stripe or banking institutions.</p>
+
+  <h3>F. Worker Onboarding Fee</h3>
+  <p>Workers are subject to a total onboarding fee of $30.00, collected in three installments of $10.00 each, automatically deducted from the Worker's first three job payouts. This fee covers the cost of background check processing, identity verification, and a complimentary GitHelp window sticker. Workers are clearly informed of this installment structure during onboarding and must acknowledge it before proceeding. After three jobs, no further onboarding deductions are made.</p>
+
+  <h3>G. Platform Fee</h3>
+  <p>GitHelp retains a platform fee from each completed Job. The Worker's earnings and the platform fee are disclosed within the app. GitHelp reserves the right to modify platform fees with reasonable notice provided through the app or by email.</p>
+
+  <!-- Section 5 -->
+  <h2>5. User Conduct and Acceptable Use</h2>
+  <p>All Users agree to use the Platform lawfully, professionally, and in good faith. The following conduct is strictly prohibited:</p>
   <ul>
-    <li>Providing false, misleading, or fraudulent information in accounts or Job postings</li>
+    <li>Providing false, misleading, or fraudulent information in your account or Job postings</li>
     <li>Uploading inaccurate or misleading job photos</li>
-    <li>Harassing, threatening, or discriminating against any User</li>
-    <li>Off-platform payment arrangements or soliciting direct business</li>
+    <li>Harassing, threatening, or discriminating against any other User</li>
+    <li>Engaging in off-platform payment arrangements or soliciting direct business relationships</li>
     <li>Attempting to circumvent GitHelp's fee structure</li>
-    <li>Posting or accepting Jobs you have no intent to complete</li>
+    <li>Posting Jobs or accepting Jobs you have no intent to complete</li>
     <li>Using the Platform for any illegal purpose</li>
-    <li>Creating multiple accounts to evade a ban</li>
-    <li>Recording interactions without consent</li>
-    <li>Sharing personal contact information outside the app chat</li>
-    <li>Misrepresenting coaching credentials, licenses, or qualifications</li>
+    <li>Creating multiple accounts to evade a suspension or ban</li>
+    <li>Recording any interaction with another User without their consent</li>
+    <li>Sharing personal contact information with other Users outside of the app chat</li>
+    <li>Misrepresenting coaching credentials, licenses, or professional qualifications</li>
+  </ul>
+  <p>GitHelp reserves the right to remove any User from the Platform for violations of these standards, with or without prior notice, at GitHelp's sole discretion.</p>
+
+  <!-- Section 6 -->
+  <h2>6. Content Moderation and User Reporting</h2>
+
+  <h3>A. Reporting</h3>
+  <p>Users may report concerns about other Users, including inappropriate behavior, fraud, or safety issues, through the in-app reporting feature. GitHelp reviews all reports and reserves the right to suspend or ban any User found to have violated these Terms.</p>
+
+  <h3>B. Blocking</h3>
+  <p>Customers may block Workers from appearing on future Job postings. Blocked Workers will not be able to accept Jobs from the Customer who blocked them. GitHelp is notified of all reports and blocks.</p>
+
+  <h3>C. GitHelp's Response</h3>
+  <p>GitHelp reserves the right, but is not obligated, to investigate, remove, or act upon reported content or conduct. GitHelp may share information about Users with law enforcement if required by law or if GitHelp believes there is an imminent risk to safety.</p>
+
+  <h3>D. Ratings and Reviews</h3>
+  <p>Customers may rate Workers upon Job completion, and Workers may rate Customers upon Job completion. Ratings reflect the opinion of the rating party and are not verified or endorsed by GitHelp. Both parties agree to provide honest, good-faith ratings. GitHelp reserves the right to remove ratings that violate these Terms or are found to be fraudulent or retaliatory.</p>
+
+  <!-- Section 7 -->
+  <h2>7. Worker Licensing, Credentials, and Compliance</h2>
+  <p>Workers are solely responsible for obtaining and maintaining all required licenses, permits, registrations, and insurance for the services they offer through the Platform.</p>
+  <p>For certain Job categories (including but not limited to Plumbing, Electrical, and HVAC), Workers must acknowledge that they hold the required licenses before accepting those Jobs. Providing false licensing acknowledgments is grounds for immediate permanent ban and may expose the Worker to civil and criminal liability.</p>
+
+  <h3>Sports Coaching Credentials</h3>
+  <p>Workers offering sports coaching services through the Platform are required to disclose whether they hold a recognized coaching certification for each sport they select. Workers who indicate they are certified must provide the name of their certification. Workers who are not certified must provide a professional reference — including name and contact number — who can attest to their coaching experience and qualifications.</p>
+  <p>GitHelp reviews all submitted credentials and references as part of the Worker approval process and makes reasonable efforts to verify sports coaching qualifications. Workers who misrepresent their coaching credentials are subject to immediate permanent ban and may be subject to civil liability.</p>
+
+  <h3>Background Checks</h3>
+  <p>All Workers undergo a background check through Checkr as described in Section 2E. GitHelp reviews background check results but does not independently guarantee the absence of all disqualifying history. Customers are responsible for exercising their own judgment regarding specialized or sensitive work performed in or around their home.</p>
+
+  <!-- Section 8 -->
+  <h2>8. Privacy and Data</h2>
+  <p>GitHelp collects and uses personal information as described in the <a href="https://githelp.net/privacy">GitHelp Privacy Policy</a>. By using the Platform, you consent to the collection and use of your information as described therein.</p>
+  <p>Customer addresses are not shared with Workers until a Job is accepted. Job photos uploaded by Customers at posting are shared only with the assigned Worker and used solely to help the Worker assess the Job. After a Job is completed and the 24-hour dispute window closes, personal information including addresses, photos, and chat messages are purged from the Platform.</p>
+  <p>GitHelp uses Stripe for payment processing, Stripe Identity for Worker verification, and Checkr for background checks. By using these features, you agree to the applicable privacy policies and terms of service of these third-party providers.</p>
+  <p>Workers consent to their current device GPS location being used by the Platform to match them with available Jobs within their service radius. Location data is used in real time and is not stored beyond the active session.</p>
+
+  <!-- Section 9 -->
+  <h2>9. Intellectual Property</h2>
+  <p>The Platform, including all content, design, logos, software, and technology, is owned by GitHelp LLC and protected by applicable intellectual property laws. You may not copy, reproduce, modify, distribute, or create derivative works from any part of the Platform without GitHelp's prior written consent.</p>
+  <p>The GitHelp name, logo, and tagline "Your time. Your terms." are trademarks of GitHelp LLC and may not be used without express written permission.</p>
+  <p>By submitting content to the Platform (including photos, ratings, or chat messages), you grant GitHelp a non-exclusive, royalty-free, worldwide license to use, display, and store that content solely for the purpose of operating the Platform.</p>
+
+  <!-- Section 10 -->
+  <h2>10. Disclaimers and Limitation of Liability</h2>
+
+  <h3>A. No Warranty</h3>
+  <div class="caps">The Platform is provided on an "as is" and "as available" basis without warranties of any kind, either express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement. GitHelp does not warrant that the Platform will be error-free, uninterrupted, or free from harmful components.</div>
+
+  <h3>B. No Liability for Jobs</h3>
+  <div class="caps">GitHelp is not responsible or liable for the quality, safety, legality, or outcome of any job performed through the Platform. Workers are independent contractors who are solely responsible for their own acts and omissions. GitHelp does not supervise, direct, or control any Worker's performance of any Job. Background checks and credential reviews reduce but do not eliminate risk. In no event shall GitHelp be liable for any property damage, bodily injury, theft, or other harm caused by a Worker during the performance of a Job. Customers hire Workers at their own risk.</div>
+
+  <h3>C. Limitation of Liability</h3>
+  <div class="caps">To the fullest extent permitted by applicable law, GitHelp and its officers, directors, employees, agents, and affiliates shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising out of or related to your use of the Platform, including but not limited to lost profits, property damage, personal injury, or data loss. If GitHelp is found liable notwithstanding the foregoing, GitHelp's total aggregate liability to any User shall not exceed the total fees paid by or to that User through the Platform in the three (3) months preceding the claim.</div>
+
+  <h3>D. Indemnification</h3>
+  <p>You agree to indemnify, defend, and hold harmless GitHelp LLC and its officers, directors, employees, and agents from and against any claims, liabilities, damages, losses, and expenses (including reasonable attorneys' fees) arising out of or related to: (i) your use of the Platform; (ii) your violation of these Terms; (iii) your violation of any applicable law; (iv) any Job you post, accept, or perform; or (v) any content you submit to the Platform.</p>
+
+  <!-- Section 11 -->
+  <h2>11. Account Suspension and Termination</h2>
+  <p>GitHelp reserves the right to suspend, limit, or permanently terminate any User account at any time, with or without notice, for violations of these Terms, fraudulent activity, safety concerns, failed background checks, or any other reason GitHelp deems appropriate in its sole discretion.</p>
+  <p>Users whose accounts are terminated may not create new accounts under different names, phone numbers, or contact information. Circumventing a ban is grounds for permanent exclusion from the Platform.</p>
+  <p>You may delete your account at any time through the Settings screen in the app. Account deletion is permanent. Any pending payouts owed to Workers will be processed prior to deletion. Any authorized payment holds will be released upon Customer account deletion.</p>
+  <p>GitHelp reserves the right to pursue appropriate legal remedies for violations of these Terms.</p>
+
+  <!-- Section 12 -->
+  <h2>12. Dispute Resolution — Binding Arbitration</h2>
+  <div class="caps">Please read this section carefully. It requires you to resolve disputes with GitHelp through binding arbitration on an individual basis and waives your right to a jury trial or class action lawsuit.</div>
+
+  <h3>A. Agreement to Arbitrate</h3>
+  <p>Except as provided below, you and GitHelp agree that any dispute, claim, or controversy arising out of or relating to these Terms, the Platform, any Job, or your relationship with GitHelp (collectively, "Disputes") will be resolved exclusively through final and binding arbitration, rather than in court. This Arbitration Agreement is governed by the Federal Arbitration Act.</p>
+
+  <h3>B. Class Action Waiver</h3>
+  <div class="caps">You and GitHelp each waive the right to participate in any class action lawsuit, class-wide arbitration, or any other representative proceeding. All Disputes must be brought on an individual basis only. The arbitrator has no authority to consolidate claims or preside over any class or representative proceeding.</div>
+
+  <h3>C. Arbitration Process</h3>
+  <p>Arbitration will be administered by the American Arbitration Association (AAA) under its Consumer Arbitration Rules, available at <a href="https://www.adr.org" target="_blank">www.adr.org</a>. The arbitration will be conducted by a single arbitrator. For claims under $10,000, GitHelp will pay all AAA filing and arbitration fees unless the claim is found to be frivolous. Hearings may be conducted remotely or in Macomb County, Michigan.</p>
+
+  <h3>D. Exceptions to Arbitration</h3>
+  <p>The following claims are excluded from this Arbitration Agreement: (i) small claims court actions brought on an individual basis within the court's jurisdictional limits; (ii) claims for injunctive or equitable relief to protect intellectual property rights; and (iii) claims that applicable law expressly requires to be resolved in court.</p>
+
+  <h3>E. Opt-Out</h3>
+  <p>Workers may opt out of this Arbitration Agreement by sending written notice to GitHelp LLC within 30 days of first agreeing to these Terms. Opt-out requests must be sent by email to <a href="mailto:support@githelp.net">support@githelp.net</a> with the subject line "Arbitration Opt-Out" and must include your full name, phone number, and a clear statement that you wish to opt out.</p>
+
+  <h3>F. Governing Law</h3>
+  <p>These Terms and all Disputes are governed by the laws of the State of Michigan, without regard to conflict of law principles, except where the Federal Arbitration Act applies to arbitration provisions.</p>
+
+  <h3>G. Venue</h3>
+  <p>For any Disputes not subject to arbitration, you agree to submit to the exclusive jurisdiction of the state and federal courts located in Macomb County, Michigan.</p>
+
+  <!-- Section 13 -->
+  <h2>13. Changes to These Terms</h2>
+  <p>GitHelp reserves the right to update or modify these Terms at any time. We will notify Users of material changes by posting an updated version in the app or by sending a notification. Your continued use of the Platform after such notice constitutes your acceptance of the updated Terms. If you do not agree to the updated Terms, you must stop using the Platform and delete your account.</p>
+
+  <!-- Section 14 -->
+  <h2>14. General Provisions</h2>
+
+  <h3>A. Entire Agreement</h3>
+  <p>These Terms, together with the GitHelp Privacy Policy, constitute the entire agreement between you and GitHelp with respect to the Platform and supersede all prior agreements and understandings.</p>
+
+  <h3>B. Severability</h3>
+  <p>If any provision of these Terms is found to be invalid or unenforceable, that provision will be modified to the minimum extent necessary to make it enforceable, and all remaining provisions will continue in full force and effect. The Class Action Waiver in Section 12 is non-severable from the Arbitration Agreement — if it is found unenforceable, the Arbitration Agreement shall also be void.</p>
+
+  <h3>C. No Waiver</h3>
+  <p>GitHelp's failure to enforce any provision of these Terms does not constitute a waiver of that provision or any other provision.</p>
+
+  <h3>D. Assignment</h3>
+  <p>You may not assign or transfer your account or any rights under these Terms without GitHelp's prior written consent. GitHelp may assign these Terms in connection with a merger, acquisition, or sale of assets, with notice provided to Users.</p>
+
+  <h3>E. Contact</h3>
+  <p>For questions about these Terms, please contact GitHelp LLC at:<br>
+  Email: <a href="mailto:support@githelp.net">support@githelp.net</a><br>
+  Website: <a href="https://githelp.net">githelp.net</a><br>
+  GitHelp LLC is a registered Michigan limited liability company.</p>
+
+  <!-- Section 15 -->
+  <h2 style="color:#2e7d32; border-bottom-color:#2e7d32;">15. Pet &amp; Animal Safety</h2>
+
+  <div class="caps" style="border-left-color:#2e7d32; background:#e8f5e9; color:#1b5e20;">
+    🐾 Worker Safety Policy: By posting any job on GitHelp, customers agree to secure all pets and animals that may pose a risk to the worker. This acknowledgment is required and recorded with every job submission.
+  </div>
+
+  <h3>A. Customer Obligation to Secure Animals</h3>
+  <p>By posting a Job through the GitHelp platform, the Customer agrees to secure all dogs, cats, and any other animals that may pose a physical risk, distraction, or safety concern to the Worker prior to the Worker's arrival at the job site. This includes but is not limited to:</p>
+  <ul>
+    <li>Placing animals in a separate room, crate, or enclosed outdoor area away from the work area.</li>
+    <li>Ensuring animals cannot access the Worker at any point during the Job.</li>
+    <li>Notifying the Worker of any animals on the premises, regardless of whether they are secured.</li>
   </ul>
 
-  <h2 class="section">6. Content Moderation and User Reporting</h2>
-  <h3>A–C. Reporting, Blocking, and GitHelp's Response</h3>
-  <p>Users may report concerns through the in-app feature. Customers may block Workers from future Jobs. GitHelp reviews all reports and may suspend or ban violating Users, and may share information with law enforcement when required.</p>
-  <h3>D. Ratings and Reviews</h3>
-  <p>Both Customers and Workers may rate each other upon Job completion. Ratings are opinions of the rating party. Both parties agree to provide honest, good-faith ratings. GitHelp may remove fraudulent or retaliatory ratings.</p>
+  <h3>B. Worker's Right to Refuse or Discontinue Work</h3>
+  <p>Any GitHelp Worker has the right to refuse to begin, or to immediately discontinue, any Job if they encounter an unsecured animal that poses a safety risk. In such cases:</p>
+  <ul>
+    <li>The Worker must document the situation through the app.</li>
+    <li>The Job will be marked as incomplete due to unsafe conditions.</li>
+    <li>GitHelp LLC will review the situation and determine whether a partial or full refund is appropriate.</li>
+    <li>The Customer may be subject to account review or suspension for repeated violations.</li>
+  </ul>
 
-  <h2 class="section">7. Worker Licensing, Credentials, and Compliance</h2>
-  <p>Workers are solely responsible for all required licenses, permits, and insurance. False licensing acknowledgments are grounds for immediate permanent ban.</p>
-  <h3>Sports Coaching Credentials</h3>
-  <p>Sports coaching Workers must disclose whether they hold a recognized certification for each sport. Certified Workers provide their certification name; non-certified Workers provide a professional reference. GitHelp reviews credentials and makes reasonable efforts to verify qualifications. Misrepresenting credentials results in immediate permanent ban.</p>
-  <h3>Background Checks</h3>
-  <p>All Workers undergo a Checkr background check per Section 2E. Customers should exercise their own judgment regarding specialized work in their home.</p>
+  <h3>C. Liability for Animal-Related Incidents</h3>
+  <p>GitHelp LLC assumes no liability for any injuries, damages, or losses sustained by a Worker as a result of an unsecured or aggressive animal at a Customer's property. The Customer assumes full responsibility for any harm caused by their animals to GitHelp Workers.</p>
 
-  <h2 class="section">8. Privacy and Data</h2>
-  <p>Customer addresses are not shared until a Job is accepted. Job photos are shared only with the assigned Worker and purged after the Job closes. GitHelp uses Stripe, Stripe Identity, and Checkr — by using those features you agree to their policies. Worker GPS location is used in real time for Job matching and not stored.</p>
-
-  <h2 class="section">9. Intellectual Property</h2>
-  <p>The Platform and all content, logos, and technology are owned by GitHelp LLC. "Your time. Your terms." is a trademark of GitHelp LLC. By submitting content you grant GitHelp a license to use it solely for operating the Platform.</p>
-
-  <h2 class="section">10. Disclaimers and Limitation of Liability</h2>
-  <div class="caps-box"><p>THE PLATFORM IS PROVIDED "AS IS" WITHOUT WARRANTIES OF ANY KIND. GITHELP IS NOT RESPONSIBLE FOR THE QUALITY, SAFETY, OR OUTCOME OF ANY JOB. BACKGROUND CHECKS AND CREDENTIAL REVIEWS REDUCE BUT DO NOT ELIMINATE RISK. TO THE FULLEST EXTENT PERMITTED BY LAW, GITHELP'S TOTAL LIABILITY SHALL NOT EXCEED THE FEES PAID BY OR TO THAT USER IN THE THREE (3) MONTHS PRECEDING THE CLAIM.</p></div>
-  <h3>Indemnification</h3>
-  <p>You agree to indemnify GitHelp LLC from any claims arising from your use of the Platform, violation of these Terms, any Job you post or perform, or any content you submit.</p>
-
-  <h2 class="section">11. Account Suspension and Termination</h2>
-  <p>GitHelp may suspend or terminate any account at any time for violations, fraud, safety concerns, or failed background checks. Terminated Users may not create new accounts. You may delete your account through the Settings screen in the app.</p>
-
-  <h2 class="section">12. Dispute Resolution — Binding Arbitration</h2>
-  <div class="caps-box"><p>THIS SECTION REQUIRES BINDING ARBITRATION AND WAIVES YOUR RIGHT TO A JURY TRIAL OR CLASS ACTION.</p></div>
-  <p>All Disputes are resolved through binding arbitration administered by the AAA (<a href="https://www.adr.org" target="_blank">www.adr.org</a>) under its Consumer Arbitration Rules. For claims under $10,000, GitHelp pays all AAA fees unless the claim is frivolous. Hearings may be remote or in Macomb County, Michigan.</p>
-  <div class="caps-box"><p>YOU AND GITHELP WAIVE THE RIGHT TO CLASS ACTION OR REPRESENTATIVE PROCEEDINGS. ALL DISPUTES MUST BE BROUGHT ON AN INDIVIDUAL BASIS.</p></div>
-  <p>Excluded from arbitration: small claims court actions, IP injunctive relief, and claims required by law to be in court. Workers may opt out within 30 days by emailing <a href="mailto:support@githelp.net">support@githelp.net</a> with subject "Arbitration Opt-Out." These Terms are governed by Michigan law. Non-arbitrated disputes are subject to courts in Macomb County, Michigan.</p>
-
-  <h2 class="section">13. Changes to These Terms</h2>
-  <p>GitHelp may update these Terms at any time. Continued use after notice constitutes acceptance.</p>
-
-  <h2 class="section">14. General Provisions</h2>
-  <p>These Terms and the Privacy Policy are the entire agreement between you and GitHelp. If any provision is unenforceable, all others remain in effect. GitHelp's failure to enforce a provision is not a waiver. Contact: <a href="mailto:support@githelp.net">support@githelp.net</a> | <a href="https://githelp.net">githelp.net</a> | GitHelp LLC, a registered Michigan LLC.</p>
-
-  <h2 class="section pet">15. Pet &amp; Animal Safety</h2>
-  <div class="pet-box"><p>&#128062; Worker Safety Policy: By posting any job, customers agree to secure all pets that may pose a risk to the worker. This is required and recorded with every job submission.</p></div>
-  <h3>A. Customer Obligation</h3>
-  <p>Customers must secure all animals before the Worker arrives — in a separate room, crate, or enclosed area. Customers must notify the Worker of any animals on the premises.</p>
-  <h3>B. Worker's Right to Refuse</h3>
-  <p>Workers may refuse or stop any Job if an unsecured animal poses a safety risk. The Worker documents the situation through the app; GitHelp determines whether a refund is appropriate.</p>
-  <h3>C. Liability</h3>
-  <p>GitHelp assumes no liability for injuries from unsecured animals. The Customer assumes full responsibility for harm caused by their animals.</p>
   <h3>D. In-App Acknowledgment</h3>
-  <p>Customers must check a Pet Safety Agreement checkbox before posting any Job. This is recorded with each submission.</p>
+  <p>Prior to posting any Job, Customers are required to check a Pet Safety Agreement checkbox within the GitHelp app confirming that they agree to secure all pets that may pose a risk to the Worker. This acknowledgment is recorded with each Job submission and constitutes the Customer's binding agreement to the terms of this section.</p>
 
-  <h2 class="section sports">16. Sports Coaching</h2>
-  <h3>A. Nature of Services</h3>
-  <p>Sports coaching Jobs connect Customers with independent coaches at a flat rate. The first session is 40 minutes. Additional hours require Worker request and Customer approval through the app.</p>
+  <!-- Section 16 -->
+  <h2>16. Sports Coaching</h2>
+
+  <h3>A. Nature of Sports Coaching Services</h3>
+  <p>Sports coaching Jobs connect Customers with independent coaches for individual or small-group instruction. Coaching sessions are priced at a flat rate set by GitHelp. The first session is 40 minutes. If an additional hour is requested by the coach and approved by the Customer, that session is 50 minutes.</p>
+
   <h3>B. Session Location</h3>
-  <p>Sessions take place at the Customer's home unless both parties agree to an alternate location via in-app chat. GitHelp is not responsible for issues arising from alternate locations.</p>
+  <p>Sports coaching sessions take place at the Customer's home address as listed in the Job posting unless both parties mutually agree to an alternate location via in-app chat. GitHelp is not responsible for transportation arrangements or for any issues arising from sessions held at alternate locations.</p>
+
   <h3>C. Credential Verification</h3>
-  <p>GitHelp reviews credentials and references during onboarding and makes reasonable efforts to verify qualifications. Customers are encouraged to ask coaches about their background via in-app chat.</p>
+  <p>GitHelp reviews coaching credentials and references submitted during Worker onboarding as part of the manual approval process. GitHelp makes reasonable efforts to verify claimed certifications and contact provided references. Customers are encouraged to ask coaches about their specific qualifications through in-app chat before the session begins.</p>
+
   <h3>D. Liability Disclaimer</h3>
-  <p>Sports coaching involves physical activity and inherent risk of injury. By booking a session, Customers acknowledge and accept these risks. GitHelp assumes no liability for injuries or adverse health outcomes. Customers with pre-existing conditions should consult a physician before participating.</p>
+  <p>Sports coaching involves physical activity and inherent risk of injury. By booking a sports coaching session, Customers acknowledge and accept these risks. GitHelp LLC assumes no liability for injuries, accidents, or adverse health outcomes sustained during or as a result of a coaching session. Workers are independent contractors and are solely responsible for obtaining any applicable liability insurance. Customers with pre-existing medical conditions are advised to consult a physician before participating in any physical activity arranged through the Platform.</p>
 
-  <div style="margin-top:56px;padding-top:32px;border-top:1px solid #eee;text-align:center;">
-    <p style="font-style:italic;color:#555;font-size:13px;line-height:1.7;">By using GitHelp, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.</p>
+  <div class="footer">
+    <em>By using the GitHelp Platform, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.</em>
+    © 2026 GitHelp LLC. All rights reserved. &nbsp;|&nbsp;
+    <a href="https://githelp.net/privacy">Privacy Policy</a> &nbsp;|&nbsp;
+    <a href="https://githelp.net">githelp.net</a>
   </div>
+
 </div>
-
-<footer>
-  <p><a href="/">GitHelp</a> &nbsp;&middot;&nbsp; <a href="/terms.html">Terms of Service</a> &nbsp;&middot;&nbsp; <a href="mailto:support@githelp.net">support@githelp.net</a></p>
-  <p class="copyright">&copy; 2026 GitHelp LLC. All rights reserved. &nbsp;|&nbsp; githelp.net</p>
-</footer>
-
 </body>
 </html>
