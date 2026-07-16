@@ -495,27 +495,53 @@
     .store-btn .store-label { font-size: 11px; font-weight: 500; opacity: 0.6; display: block; }
     .store-btn .store-name { font-size: 17px; font-weight: 800; display: block; }
 
-/* ── POST JOB WIDGET ── */
-    .postjob-section {
-      background: var(--dark2);
-      display: none;
+/* ── TOP POST JOB BAR ── */
+    .topbar-postjob {
+      background: var(--dark);
+      text-align: center;
+      padding: 14px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
     }
 
-    .postjob-section.active { display: block; }
+    .pj-big-btn {
+      padding: 12px 32px;
+      background: var(--green);
+      color: var(--dark);
+      border: none;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+
+    .pj-big-btn:hover { transform: translateY(-2px); opacity: 0.9; }
+
+    .postjob-panel {
+      display: none;
+      background: var(--dark);
+      padding: 24px 20px 32px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .postjob-panel.active { display: block; }
 
     .postjob-grid {
       display: grid;
       grid-template-columns: 1fr 1.3fr 1.1fr;
       gap: 20px;
-      margin-top: 40px;
+      max-width: 1100px;
+      margin: 0 auto;
     }
 
     .pj-zone {
       background: var(--mid);
       border: 1px solid rgba(255,255,255,0.06);
       border-radius: var(--radius);
-      padding: 28px;
-      min-height: 380px;
+      padding: 24px;
+      min-height: 360px;
+      max-height: 480px;
+      overflow-y: auto;
       transition: opacity 0.3s;
     }
 
@@ -527,23 +553,8 @@
       letter-spacing: 1px;
       text-transform: uppercase;
       color: var(--green);
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
-
-    .pj-big-btn {
-      width: 100%;
-      padding: 16px;
-      background: var(--green);
-      color: var(--dark);
-      border: none;
-      border-radius: 100px;
-      font-weight: 700;
-      font-size: 16px;
-      cursor: pointer;
-      transition: transform 0.2s, opacity 0.2s;
-    }
-
-    .pj-big-btn:hover { transform: translateY(-2px); opacity: 0.9; }
 
     .pj-cat-search {
       width: 100%;
@@ -554,13 +565,15 @@
       color: var(--white);
       font-size: 15px;
       margin-bottom: 12px;
+      position: sticky;
+      top: 0;
     }
 
     .pj-cat-item {
       width: 100%;
       text-align: left;
-      padding: 12px 16px;
-      margin-bottom: 8px;
+      padding: 10px 14px;
+      margin-bottom: 6px;
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 10px;
@@ -571,6 +584,12 @@
     }
 
     .pj-cat-item:hover { border-color: rgba(34,197,94,0.4); }
+
+    .pj-cat-empty {
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      padding: 12px 4px;
+    }
 
     .pj-field {
       width: 100%;
@@ -650,6 +669,28 @@
   </style>
 </head>
 <body>
+
+  <!-- TOP POST JOB BAR -->
+  <div class="topbar-postjob">
+    <button class="pj-big-btn" id="pjStartBtn">Post a Job</button>
+  </div>
+  <div class="postjob-panel" id="postjobPanel">
+    <div class="postjob-grid">
+      <div class="pj-zone" id="pjZone1">
+        <div class="pj-step-label">Step 1 — pick a job</div>
+        <input class="pj-cat-search" id="pjSearch" placeholder="Type to search...">
+        <div id="pjCatList"></div>
+      </div>
+      <div class="pj-zone dim" id="pjZone2">
+        <div class="pj-step-label">Step 2</div>
+        <p style="font-size:14px;color:rgba(255,255,255,0.4);">Job details will appear here</p>
+      </div>
+      <div class="pj-zone dim" id="pjZone3">
+        <div class="pj-step-label">Step 3</div>
+        <p style="font-size:14px;color:rgba(255,255,255,0.4);">Confirm and pay will appear here</p>
+      </div>
+    </div>
+  </div>
 
   <!-- NAV -->
   <nav>
@@ -849,29 +890,6 @@
     </div>
   </section>
 
-<!-- POST A JOB WIDGET -->
-  <section class="postjob-section" id="postjob">
-    <div class="container">
-      <div class="section-label">Post a job online</div>
-      <h2 class="section-title">Get help without the app.</h2>
-      <p class="section-sub">Post your job right here on the website — background-checked local workers will see it in the GitHelp app.</p>
-      <div class="postjob-grid">
-        <div class="pj-zone" id="pjZone1">
-          <div class="pj-step-label">Step 1</div>
-          <button class="pj-big-btn" id="pjStartBtn">Post a job</button>
-          <p style="font-size:13px;color:rgba(255,255,255,0.5);margin-top:16px;line-height:1.6;">Background-checked local workers in Macomb County</p>
-        </div>
-        <div class="pj-zone dim" id="pjZone2">
-          <div class="pj-step-label">Step 2</div>
-          <p style="font-size:14px;color:rgba(255,255,255,0.4);">Job details will appear here</p>
-        </div>
-        <div class="pj-zone dim" id="pjZone3">
-          <div class="pj-step-label">Step 3</div>
-          <p style="font-size:14px;color:rgba(255,255,255,0.4);">Confirm and pay will appear here</p>
-        </div>
-      </div>
-    </div>
-  </section>
   
   <!-- FOOTER -->
   <footer>
