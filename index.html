@@ -71,6 +71,31 @@
 
     .postjob-panel.active { display: block; }
 
+    .pj-close-btn {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.7);
+      font-size: 18px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, color 0.2s;
+      z-index: 195;
+    }
+
+    .pj-close-btn:hover {
+      background: rgba(255,255,255,0.14);
+      color: var(--white);
+    }
+
     .postjob-grid {
       display: grid;
       grid-template-columns: 1fr 1.3fr 1.1fr;
@@ -788,6 +813,7 @@
     <button class="pj-big-btn" id="pjStartBtn">Post a Job</button>
   </div>
   <div class="postjob-panel" id="postjobPanel">
+    <button class="pj-close-btn" id="pjCloseBtn" aria-label="Close" type="button">&times;</button>
     <div class="postjob-grid">
       <div class="pj-zone" id="pjZone1">
         <div class="pj-step-label">Step 1 — pick a job</div>
@@ -830,7 +856,7 @@
         </div>
         <div class="hero-badge">Now serving Metro Detroit &amp; Macomb County</div>
         <h1>Your time.<br><span class="green">Your</span> <span class="blue">terms.</span></h1>
-        <p class="hero-sub">Trusted neighbors handle the jobs you can't do or don't want to do — so you can spend your time on what actually matters.</p>
+        <p class="hero-sub">Trusted neighbors handle the jobs you don't want to do — so you can spend your time on what actually matters.</p>
         <div class="hero-buttons">
           <button class="btn-primary trigger-postjob" type="button">Post a Job</button>
           <a href="#download" class="btn-secondary">📱 Download the App</a>
@@ -1201,6 +1227,26 @@
       pjRenderList('');
       document.getElementById('pjSearch').focus();
     }
+
+    function pjClosePanel() {
+      document.getElementById('postjobPanel').classList.remove('active');
+      pjSelectedCategory = null;
+
+      var searchBox = document.getElementById('pjSearch');
+      if (searchBox) searchBox.value = '';
+
+      var zone2 = document.getElementById('pjZone2');
+      zone2.classList.add('dim');
+      zone2.innerHTML = '<div class="pj-step-label">Step 2</div>' +
+        '<p style="font-size:14px;color:rgba(255,255,255,0.4);">Job details will appear here</p>';
+
+      var zone3 = document.getElementById('pjZone3');
+      zone3.classList.add('dim');
+      zone3.innerHTML = '<div class="pj-step-label">Step 3</div>' +
+        '<p style="font-size:14px;color:rgba(255,255,255,0.4);">Confirm and pay will appear here</p>';
+    }
+
+    document.getElementById('pjCloseBtn').addEventListener('click', pjClosePanel);
 
     document.getElementById('pjStartBtn').addEventListener('click', pjOpenPanel);
 
