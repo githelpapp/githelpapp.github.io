@@ -175,6 +175,22 @@
       margin-bottom: 12px;
     }
 
+    .pj-field.pj-error {
+      border-color: #ef4444;
+    }
+
+    .pj-error-msg {
+      color: #ef4444;
+      font-size: 13px;
+      font-weight: 600;
+      margin: -6px 0 12px;
+      display: none;
+    }
+
+    .pj-error-msg.show {
+      display: block;
+    }
+
     .pj-continue-btn {
       width: 100%;
       padding: 14px;
@@ -1074,6 +1090,7 @@
       {id:"eaac8ae0-3554-43b6-bf0f-c304279ce1bf", name:"Re-Caulk Bathtub or Sink", cat:"General Handyman / Repairs", price:49},
       {id:"09d82de0-a5e4-417c-ad42-6de95b658a4c", name:"Secure Loose Downspout", cat:"General Handyman / Repairs", price:49},
       {id:"830402fc-eb38-4af1-a2ae-7eec4dba3fd9", name:"Drywall Repair", cat:"General Handyman / Repairs", price:59},
+      {id:"6e6390f1-273c-489c-9973-7cb11aac739a", name:"Fix Loose Railing", cat:"General Handyman / Repairs", price:69},
       {id:"3afe2c6d-66d9-44a6-993f-db9a3a70ed10", name:"Replace Thermostat / Install Smart Thermostat", cat:"HVAC & Home Systems", price:49},
       {id:"ba366178-391a-48c9-b1a7-5de11e6cd721", name:"Clean Sump Pump Pit", cat:"HVAC & Home Systems", price:59},
       {id:"f59e54f4-63ec-4f50-93ce-d5b9f8a1c5d0", name:"Test Sump Pump", cat:"HVAC & Home Systems", price:49},
@@ -1097,6 +1114,8 @@
       {id:"b309d80f-4083-4694-a154-568b519f4a7b", name:"Outdoor Patio Cleaning", cat:"Outdoor & Yard Work", price:39},
       {id:"3b37af6f-89e2-426d-89df-a1cd97943f99", name:"Replace Mailbox", cat:"Outdoor & Yard Work", price:49},
       {id:"eb665186-ba18-4ee4-979b-cf9f18e888e0", name:"Pull Weeds (Small Area)", cat:"Outdoor & Yard Work", price:39},
+      {id:"6113c77a-1370-4bf3-82a3-7dde1a242144", name:"Driveway & Sidewalk Weeding", cat:"Outdoor & Yard Work", price:39},
+      {id:"81349200-40d9-44ca-ab2e-14b80b0a3976", name:"Lawn Trimming & Edging", cat:"Outdoor & Yard Work", price:44},
       {id:"3c115899-1809-4f83-94c6-5bd13d40e6dd", name:"Assemble Outdoor Furniture", cat:"Outdoor & Yard Work", price:49},
       {id:"3db6dc63-b645-4ad9-bdda-7d63cee7e099", name:"Pressure Washing", cat:"Outdoor & Yard Work", price:59},
       {id:"88d0457f-7d82-48c8-b2c5-84288504011e", name:"Snow Removal", cat:"Outdoor & Yard Work", price:39},
@@ -1207,18 +1226,49 @@
         '<div style="display:flex;justify-content:space-between;align-items:center;margin:14px 0;">' +
         '<span style="font-size:13px;color:rgba(255,255,255,0.5);">Estimated price</span>' +
         '<span style="font-size:22px;font-weight:700;">$' + c.price + '</span></div>' +
+        '<div class="pj-error-msg" id="pjZone2Error">Please fill out your name and address before continuing.</div>' +
         '<button class="pj-continue-btn" id="pjContinueBtn">Continue</button>';
 
       pjAttachAutocomplete();
 
       document.getElementById('pjContinueBtn').addEventListener('click', function() {
+        var requiredIds = ['pjFirstName', 'pjLastName', 'pjAddress'];
+        var valid = pjValidateFields(requiredIds, 'pjZone2Error');
+        if (!valid) return;
+
         var zone3 = document.getElementById('pjZone3');
         zone3.classList.remove('dim');
-        zone3.innerHTML = '<div class="pj-step-label">Step 3 — confirm and pay</div>' +
-          '<input class="pj-field" placeholder="Phone number">' +
-          '<input class="pj-field" placeholder="Enter code sent by text">' +
-          '<button class="pj-continue-btn" style="background:var(--green);color:var(--dark);">Confirm and pay</button>';
+        zone3.innerHTML = '<div class="pj-step-label">Step 3 — finish booking</div>' +
+          '<p style="font-size:14px;line-height:1.6;color:rgba(255,255,255,0.75);margin-bottom:16px;">' +
+          'Online booking for this job is almost ready! For now, give us a quick call or text and we\'ll get you booked right away:</p>' +
+          '<a href="tel:+18883898019" class="pj-continue-btn" style="display:block;text-align:center;text-decoration:none;background:var(--green);color:var(--dark);margin-bottom:10px;">Call (888) 389-8019</a>' +
+          '<a href="sms:+18883898019" class="pj-continue-btn" style="display:block;text-align:center;text-decoration:none;background:rgba(255,255,255,0.1);color:var(--white);border:1px solid rgba(255,255,255,0.2);">Text (888) 389-8019</a>';
       });
+    }
+
+    function pjValidateFields(ids, errorElId) {
+      var allValid = true;
+      ids.forEach(function(id) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        if (el.value.trim() === '') {
+          el.classList.add('pj-error');
+          allValid = false;
+        } else {
+          el.classList.remove('pj-error');
+        }
+      });
+
+      var errorEl = document.getElementById(errorElId);
+      if (errorEl) {
+        if (allValid) {
+          errorEl.classList.remove('show');
+        } else {
+          errorEl.classList.add('show');
+        }
+      }
+
+      return allValid;
     }
 
     function pjOpenPanel() {
