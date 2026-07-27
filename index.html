@@ -843,6 +843,7 @@
   </style>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAF7Hj-IMRdudHbzNsPlSVGuE2yC07uoDs&libraries=places" async defer></script>
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
 
@@ -1203,6 +1204,10 @@
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh1dGNoYnJwc3J1Y21yZnRudWVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA1NjE0NDYsImV4cCI6MjA4NjEzNzQ0Nn0.DrdAqVcIP5mdkuFPm_gziIs-kBtqMiY6xxLjZWYJZiY'
     );
 
+    var pjStripe = Stripe('pk_live_51T8i8G2FtmRhS1vLm8agLk57470nDAHpzaKOOCje6Dc3p7lxKuFJMDPQ5T9hdFbNFPmI3OYoELVY1ulA4rH2Uqsz00juDB6sJ1');
+    var pjStripeElements = null;
+    var pjStripeCardElement = null;
+
     var pjCityStateZip = { city: '', state: '', zip: '' };
 
     function pjAttachAutocomplete() {
@@ -1490,11 +1495,144 @@
         return;
       }
 
-      zone3.innerHTML = '<div class="pj-step-label">Step 3 — verified &amp; account created ✅</div>' +
-        '<p style="font-size:14px;line-height:1.6;color:rgba(255,255,255,0.75);margin-bottom:16px;">' +
-        'Your email and phone are verified, and your account is ready! Online payment is almost ready — for now, give us a quick call or text and we\'ll get your job booked right away:</p>' +
-        '<a href="tel:+18883898019" class="pj-continue-btn" style="display:block;text-align:center;text-decoration:none;background:var(--green);color:var(--dark);margin-bottom:10px;">Call (888) 389-8019</a>' +
-        '<a href="sms:+18883898019" class="pj-continue-btn" style="display:block;text-align:center;text-decoration:none;background:rgba(255,255,255,0.1);color:var(--white);border:1px solid rgba(255,255,255,0.2);">Text (888) 389-8019</a>';
+      pjShowPaymentStep(userId);
+    }
+
+    async function pjShowPaymentStep(userId) {
+      var zone3 = document.getElementById('pjZone3');
+      zone3.innerHTML = '<div class="pj-step-label">Step 3 — payment</div>' +
+        '<p style="font-size:14px;color:rgba(255,255,255,0.6);">Setting up secure payment...</p>';
+
+      try {
+        var siRes = await fetch('https://xutchbrpsrucmrftnuei.supabase.co/functions/v1/stripe-payment', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh1dGNoYnJwc3J1Y21yZnRudWVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA1NjE0NDYsImV4cCI6MjA4NjEzNzQ0Nn0.DrdAqVcIP5mdkuFPm_gziIs-kBtqMiY6xxLjZWYJZiY',
+            'x-app-secret': 'githelp-stripe-2024'
+          },
+          body: JSON.stringify({ action: 'create_setup_intent', user_id: userId, email: pjPendingSignup.email })
+        });
+        var siJson = await siRes.json();
+        if (siJson.error) throw new Error(siJson.error);
+
+        pjPendingSignup.stripeCustomerId = siJson.stripe_customer_id;
+        pjPendingSignup.setupIntentSecret = siJson.setup_intent_client_secret;
+        pjPendingSignup.userId = userId;
+
+        zone3.innerHTML = '<div class="pj-step-label">Step 3 — payment</div>' +
+          '<p style="font-size:14px;color:rgba(255,255,255,0.6);margin-bottom:14px;">Your card will only be charged once a worker accepts your job.</p>' +
+          '<div id="pjCardElement" style="padding:14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;margin-bottom:12px;"></div>' +
+          '<div class="pj-error-msg" id="pjZone3Error">There was a problem with your card.</div>' +
+          '<button class="pj-continue-btn" id="pjPayBtn" style="background:var(--green);color:var(--dark);">Confirm &amp; Pay $' + pjSelectedCategory.price.toFixed(2) + '</button>';
+
+        pjStripeElements = pjStripe.elements();
+        pjStripeCardElement = pjStripeElements.create('card', {
+          style: { base: { color: '#ffffff', fontSize: '16px', '::placeholder': { color: 'rgba(255,255,255,0.4)' } }, invalid: { color: '#ef4444' } }
+        });
+        pjStripeCardElement.mount('#pjCardElement');
+
+        document.getElementById('pjPayBtn').addEventListener('click', pjSubmitPayment);
+      } catch (err) {
+        zone3.innerHTML = '<div class="pj-step-label">Step 3 — something went wrong</div>' +
+          '<p style="font-size:14px;color:#ef4444;">' + err.message + '</p>';
+      }
+    }
+
+    async function pjSubmitPayment() {
+      var payBtn = document.getElementById('pjPayBtn');
+      var errorEl = document.getElementById('pjZone3Error');
+      payBtn.disabled = true;
+      payBtn.textContent = 'Processing...';
+
+      try {
+        var confirmResult = await pjStripe.confirmCardSetup(pjPendingSignup.setupIntentSecret, {
+          payment_method: { card: pjStripeCardElement }
+        });
+        if (confirmResult.error) throw new Error(confirmResult.error.message);
+
+        await fetch('https://xutchbrpsrucmrftnuei.supabase.co/functions/v1/stripe-payment', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh1dGNoYnJwc3J1Y21yZnRudWVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA1NjE0NDYsImV4cCI6MjA4NjEzNzQ0Nn0.DrdAqVcIP5mdkuFPm_gziIs-kBtqMiY6xxLjZWYJZiY',
+            'x-app-secret': 'githelp-stripe-2024'
+          },
+          body: JSON.stringify({ action: 'get_default_payment_method', stripe_customer_id: pjPendingSignup.stripeCustomerId, user_id: pjPendingSignup.userId })
+        });
+
+        var profileCheck = await supabaseClient.from('profiles').select('stripe_payment_method_id').eq('id', pjPendingSignup.userId).maybeSingle();
+        if (!profileCheck.data || !profileCheck.data.stripe_payment_method_id) throw new Error('Card could not be saved.');
+        var paymentMethodId = profileCheck.data.stripe_payment_method_id;
+
+        var jobInsert = await supabaseClient.from('jobs').insert({
+          customer_id: pjPendingSignup.userId,
+          category_id: pjSelectedCategory.id,
+          title: pjSelectedCategory.name,
+          comment: (document.getElementById('pjComment') ? document.getElementById('pjComment').value.trim() : '') || null,
+          status: 'open',
+          contact_name: pjPendingSignup.firstName + ' ' + pjPendingSignup.lastName,
+          address: pjPendingSignup.address,
+          city: pjCityStateZip.city,
+          state: pjCityStateZip.state,
+          zip: pjCityStateZip.zip,
+          contact_phone: pjPendingSignup.e164Phone,
+          needed_by: 'ASAP',
+          is_asap: true,
+          will_be_home: true,
+          pets_secured: true,
+          job_total: pjSelectedCategory.price
+        }).select('id').single();
+        if (jobInsert.error) throw new Error(jobInsert.error.message);
+
+        try {
+          await fetch('https://xutchbrpsrucmrftnuei.supabase.co/functions/v1/notify-qualified-workers', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'x-app-secret': 'githelp-stripe-2024' },
+            body: JSON.stringify({ job_id: jobInsert.data.id })
+          });
+        } catch (notifyErr) {}
+
+        var authRes = await fetch('https://xutchbrpsrucmrftnuei.supabase.co/functions/v1/stripe-payment', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh1dGNoYnJwc3J1Y21yZnRudWVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA1NjE0NDYsImV4cCI6MjA4NjEzNzQ0Nn0.DrdAqVcIP5mdkuFPm_gziIs-kBtqMiY6xxLjZWYJZiY',
+            'x-app-secret': 'githelp-stripe-2024'
+          },
+          body: JSON.stringify({
+            action: 'authorize',
+            payment_method_id: paymentMethodId,
+            stripe_customer_id: pjPendingSignup.stripeCustomerId,
+            customer_email: pjPendingSignup.email,
+            job_id: jobInsert.data.id,
+            amount: pjSelectedCategory.price
+          })
+        });
+        var authJson = await authRes.json();
+        if (authJson.error) throw new Error(authJson.error);
+
+        var workerAmount = Math.floor(pjSelectedCategory.price * 0.641026);
+        var platformAmount = parseFloat((pjSelectedCategory.price - workerAmount).toFixed(2));
+        await supabaseClient.from('payments').insert({
+          job_id: jobInsert.data.id,
+          customer_id: pjPendingSignup.userId,
+          amount_customer: pjSelectedCategory.price,
+          amount_worker: workerAmount,
+          amount_platform: platformAmount,
+          status: 'authorized',
+          stripe_payment_intent_id: authJson.payment_intent_id
+        });
+
+        var zone3 = document.getElementById('pjZone3');
+        zone3.innerHTML = '<div class="pj-step-label">Your job is live! 🎉</div>' +
+          '<p style="font-size:14px;line-height:1.6;color:rgba(255,255,255,0.75);">Qualified workers in your area have been notified. You will only be charged once a worker accepts your job.</p>';
+      } catch (err) {
+        errorEl.textContent = err.message;
+        errorEl.classList.add('show');
+        payBtn.disabled = false;
+        payBtn.textContent = 'Confirm & Pay $' + pjSelectedCategory.price.toFixed(2);
+      }
     }
 
     function pjValidateFields(ids, errorElId) {
