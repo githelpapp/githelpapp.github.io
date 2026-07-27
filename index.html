@@ -1308,65 +1308,44 @@
         }
         if (!valid) return;
 
+        var phoneRaw = document.getElementById('pjPhone').value.trim();
+        var digits = phoneRaw.replace(/[^0-9]/g, '');
+        var e164Phone;
+        if (digits.length === 10) e164Phone = '+1' + digits;
+        else if (digits.length === 11 && digits.charAt(0) === '1') e164Phone = '+' + digits;
+        else {
+          errorEl.textContent = 'Please enter a valid 10-digit US phone number.';
+          errorEl.classList.add('show');
+          return;
+        }
+
+        pjPendingSignup = {
+          firstName: document.getElementById('pjFirstName').value.trim(),
+          lastName: document.getElementById('pjLastName').value.trim(),
+          address: document.getElementById('pjAddress').value.trim(),
+          email: document.getElementById('pjEmail').value.trim(),
+          password: password,
+          e164Phone: e164Phone
+        };
+
         var continueBtn = document.getElementById('pjContinueBtn');
         continueBtn.disabled = true;
-        continueBtn.textContent = 'Creating your account...';
+        continueBtn.textContent = 'Sending verification code...';
 
         try {
-          var firstName = document.getElementById('pjFirstName').value.trim();
-          var lastName = document.getElementById('pjLastName').value.trim();
-          var address = document.getElementById('pjAddress').value.trim();
-          var phoneRaw = document.getElementById('pjPhone').value.trim();
-          var email = document.getElementById('pjEmail').value.trim();
-
-          var digits = phoneRaw.replace(/[^0-9]/g, '');
-          var e164Phone;
-          if (digits.length === 10) e164Phone = '+1' + digits;
-          else if (digits.length === 11 && digits.charAt(0) === '1') e164Phone = '+' + digits;
-          else {
-            errorEl.textContent = 'Please enter a valid 10-digit US phone number.';
-            errorEl.classList.add('show');
-            continueBtn.disabled = false;
-            continueBtn.textContent = 'Continue';
-            return;
-          }
-
-          var normalized = digits.length === 11 ? digits : ('1' + digits);
-          var syntheticEmail = normalized + '@githelp.app';
-
-          var signUpResult = await supabaseClient.auth.signUp({
-            email: syntheticEmail,
-            password: password
+          var sendEmailRes = await fetch('https://xutchbrpsrucmrftnuei.supabase.co/functions/v1/send-email-otp', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh1dGNoYnJwc3J1Y21yZnRudWVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA1NjE0NDYsImV4cCI6MjA4NjEzNzQ0Nn0.DrdAqVcIP5mdkuFPm_gziIs-kBtqMiY6xxLjZWYJZiY',
+              'x-app-secret': 'githelp-stripe-2024'
+            },
+            body: JSON.stringify({ email: pjPendingSignup.email, action: 'send' })
           });
-          if (signUpResult.error) throw new Error(signUpResult.error.message);
+          var sendEmailJson = await sendEmailRes.json();
+          if (!sendEmailJson.success) throw new Error(sendEmailJson.error || 'Failed to send email verification code');
 
-          var userId = signUpResult.data.user.id;
-
-          var profileResult = await supabaseClient.from('profiles').upsert({
-            id: userId,
-            role: 'customer',
-            display_name: firstName + ' ' + lastName,
-            first_name: firstName,
-            last_name: lastName,
-            address: address,
-            city: pjCityStateZip.city,
-            state: pjCityStateZip.state,
-            zip: pjCityStateZip.zip,
-            phone: e164Phone,
-            email: email,
-            customer_onboarded: true,
-            last_role: 'customer'
-          });
-          if (profileResult.error) throw new Error(profileResult.error.message);
-
-          var zone3 = document.getElementById('pjZone3');
-          zone3.classList.remove('dim');
-          zone3.innerHTML = '<div class="pj-step-label">Step 3 — account created</div>' +
-            '<p style="font-size:14px;line-height:1.6;color:rgba(255,255,255,0.75);margin-bottom:16px;">' +
-            'Your account has been created! Online payment is almost ready — for now, give us a quick call or text and we\'ll get your ' + c.name + ' job booked right away:</p>' +
-            '<a href="tel:+18883898019" class="pj-continue-btn" style="display:block;text-align:center;text-decoration:none;background:var(--green);color:var(--dark);margin-bottom:10px;">Call (888) 389-8019</a>' +
-            '<a href="sms:+18883898019" class="pj-continue-btn" style="display:block;text-align:center;text-decoration:none;background:rgba(255,255,255,0.1);color:var(--white);border:1px solid rgba(255,255,255,0.2);">Text (888) 389-8019</a>';
-
+          pjShowEmailVerification();
         } catch (err) {
           errorEl.textContent = 'Something went wrong: ' + err.message;
           errorEl.classList.add('show');
@@ -1374,6 +1353,148 @@
           continueBtn.textContent = 'Continue';
         }
       });
+    }
+
+    var pjPendingSignup = null;
+
+    function pjShowEmailVerification() {
+      var zone3 = document.getElementById('pjZone3');
+      zone3.classList.remove('dim');
+      zone3.innerHTML = '<div class="pj-step-label">Step 3 — verify your email</div>' +
+        '<p style="font-size:14px;line-height:1.6;color:rgba(255,255,255,0.75);margin-bottom:16px;">We sent a 6-digit code to <strong>' + pjPendingSignup.email + '</strong>. Enter it below.</p>' +
+        '<input class="pj-field" id="pjEmailCode" placeholder="6-digit code" maxlength="6" inputmode="numeric">' +
+        '<div class="pj-error-msg" id="pjZone3Error">Please enter the code we sent you.</div>' +
+        '<button class="pj-continue-btn" id="pjVerifyEmailBtn">Verify Email</button>';
+
+      document.getElementById('pjVerifyEmailBtn').addEventListener('click', async function() {
+        var code = document.getElementById('pjEmailCode').value.trim();
+        var btn = document.getElementById('pjVerifyEmailBtn');
+        var errorEl = document.getElementById('pjZone3Error');
+        if (code.length !== 6) {
+          errorEl.textContent = 'Please enter the 6-digit code sent to your email.';
+          errorEl.classList.add('show');
+          return;
+        }
+        btn.disabled = true;
+        btn.textContent = 'Verifying...';
+        try {
+          var verifyRes = await fetch('https://xutchbrpsrucmrftnuei.supabase.co/functions/v1/send-email-otp', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh1dGNoYnJwc3J1Y21yZnRudWVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA1NjE0NDYsImV4cCI6MjA4NjEzNzQ0Nn0.DrdAqVcIP5mdkuFPm_gziIs-kBtqMiY6xxLjZWYJZiY',
+              'x-app-secret': 'githelp-stripe-2024'
+            },
+            body: JSON.stringify({ email: pjPendingSignup.email, action: 'verify', code: code })
+          });
+          var verifyJson = await verifyRes.json();
+          if (!verifyJson.success) throw new Error(verifyJson.error || 'Invalid or expired code');
+
+          var sendPhoneRes = await fetch('https://xutchbrpsrucmrftnuei.supabase.co/functions/v1/send-otp', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'x-app-secret': 'githelp-stripe-2024' },
+            body: JSON.stringify({ phone: pjPendingSignup.e164Phone })
+          });
+          var sendPhoneJson = await sendPhoneRes.json();
+          if (!sendPhoneJson.success) throw new Error(sendPhoneJson.error || 'Failed to send phone verification code');
+
+          pjShowPhoneVerification();
+        } catch (err) {
+          errorEl.textContent = err.message;
+          errorEl.classList.add('show');
+          btn.disabled = false;
+          btn.textContent = 'Verify Email';
+        }
+      });
+    }
+
+    function pjShowPhoneVerification() {
+      var zone3 = document.getElementById('pjZone3');
+      zone3.innerHTML = '<div class="pj-step-label">Step 3 — verify your phone</div>' +
+        '<p style="font-size:14px;line-height:1.6;color:rgba(255,255,255,0.75);margin-bottom:16px;">We sent a 6-digit code to <strong>' + pjPendingSignup.e164Phone + '</strong>. Enter it below.</p>' +
+        '<input class="pj-field" id="pjPhoneCode" placeholder="6-digit code" maxlength="6" inputmode="numeric">' +
+        '<div class="pj-error-msg" id="pjZone3Error">Please enter the code we sent you.</div>' +
+        '<button class="pj-continue-btn" id="pjVerifyPhoneBtn">Verify Phone</button>';
+
+      document.getElementById('pjVerifyPhoneBtn').addEventListener('click', async function() {
+        var code = document.getElementById('pjPhoneCode').value.trim();
+        var btn = document.getElementById('pjVerifyPhoneBtn');
+        var errorEl = document.getElementById('pjZone3Error');
+        if (code.length !== 6) {
+          errorEl.textContent = 'Please enter the 6-digit code sent to your phone.';
+          errorEl.classList.add('show');
+          return;
+        }
+        btn.disabled = true;
+        btn.textContent = 'Verifying...';
+        try {
+          var verifyRes = await fetch('https://xutchbrpsrucmrftnuei.supabase.co/functions/v1/verify-otp', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'x-app-secret': 'githelp-stripe-2024' },
+            body: JSON.stringify({ phone: pjPendingSignup.e164Phone, code: code })
+          });
+          var verifyJson = await verifyRes.json();
+          if (!verifyJson.verified) throw new Error(verifyJson.error || 'Incorrect code, please try again');
+
+          await pjCreateAccountAndProfile();
+        } catch (err) {
+          errorEl.textContent = err.message;
+          errorEl.classList.add('show');
+          btn.disabled = false;
+          btn.textContent = 'Verify Phone';
+        }
+      });
+    }
+
+    async function pjCreateAccountAndProfile() {
+      var zone3 = document.getElementById('pjZone3');
+      zone3.innerHTML = '<div class="pj-step-label">Step 3 — creating your account</div>' +
+        '<p style="font-size:14px;color:rgba(255,255,255,0.6);">Just a moment...</p>';
+
+      var digits = pjPendingSignup.e164Phone.replace(/[^0-9]/g, '');
+      var normalized = digits.length === 11 ? digits : ('1' + digits);
+      var syntheticEmail = normalized + '@githelp.app';
+
+      var signUpResult = await supabaseClient.auth.signUp({
+        email: syntheticEmail,
+        password: pjPendingSignup.password
+      });
+      if (signUpResult.error) {
+        zone3.innerHTML = '<div class="pj-step-label">Step 3 — something went wrong</div>' +
+          '<p style="font-size:14px;color:#ef4444;">' + signUpResult.error.message + '</p>';
+        return;
+      }
+
+      var userId = signUpResult.data.user.id;
+
+      var profileResult = await supabaseClient.from('profiles').upsert({
+        id: userId,
+        role: 'customer',
+        display_name: pjPendingSignup.firstName + ' ' + pjPendingSignup.lastName,
+        first_name: pjPendingSignup.firstName,
+        last_name: pjPendingSignup.lastName,
+        address: pjPendingSignup.address,
+        city: pjCityStateZip.city,
+        state: pjCityStateZip.state,
+        zip: pjCityStateZip.zip,
+        phone: pjPendingSignup.e164Phone,
+        email: pjPendingSignup.email,
+        phone_verified: true,
+        email_verified: true,
+        customer_onboarded: true,
+        last_role: 'customer'
+      });
+      if (profileResult.error) {
+        zone3.innerHTML = '<div class="pj-step-label">Step 3 — something went wrong</div>' +
+          '<p style="font-size:14px;color:#ef4444;">' + profileResult.error.message + '</p>';
+        return;
+      }
+
+      zone3.innerHTML = '<div class="pj-step-label">Step 3 — verified &amp; account created ✅</div>' +
+        '<p style="font-size:14px;line-height:1.6;color:rgba(255,255,255,0.75);margin-bottom:16px;">' +
+        'Your email and phone are verified, and your account is ready! Online payment is almost ready — for now, give us a quick call or text and we\'ll get your job booked right away:</p>' +
+        '<a href="tel:+18883898019" class="pj-continue-btn" style="display:block;text-align:center;text-decoration:none;background:var(--green);color:var(--dark);margin-bottom:10px;">Call (888) 389-8019</a>' +
+        '<a href="sms:+18883898019" class="pj-continue-btn" style="display:block;text-align:center;text-decoration:none;background:rgba(255,255,255,0.1);color:var(--white);border:1px solid rgba(255,255,255,0.2);">Text (888) 389-8019</a>';
     }
 
     function pjValidateFields(ids, errorElId) {
